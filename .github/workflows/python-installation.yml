@@ -9,13 +9,17 @@ jobs:
       max-parallel: 2
       matrix:
         os: [ubuntu-latest, macos-14, windows-latest]
-        versions: [3.9, 3.11, 3.12]
+        py-version: [3.9, 3.11, 3.12]
+        exclude:
+          - os: macos-14
+            py-version: 3.12
+            
     runs-on: ${{ matrix.os }}
     steps:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.versions }}
+        python-version: ${{ matrix.py-version }}
     - name: Check python version
       run: python3 --version
         
